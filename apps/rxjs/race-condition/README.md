@@ -1,13 +1,7 @@
-# Race Condition
+# Исправляем состояние гонки
 
-> author: thomas-laforge
+## Исходная проблема
 
-### Run Application
+// TODO:
 
-```bash
-npx nx serve rxjs-race-condition
-```
-
-### Documentation and Instruction
-
-Challenge documentation is [here](https://angular-challenges.vercel.app/challenges/rxjs/14-race-condition/).
+## Шаги к решению
