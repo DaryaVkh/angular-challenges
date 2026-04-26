@@ -13,6 +13,6 @@
 
 ## Запуск тестов
 
+START APPLICATION: `npx nx serve rxjs-race-condition`
 HEADLESS : `npx nx component-test rxjs-race-condition`
 WATCH MODE : `npx nx component-test rxjs-race-condition --watch`
-
