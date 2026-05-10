@@ -394,3 +394,104 @@ export class StarRatingCvaComponent implements ControlValueAccessor {
 
 Любопытные могут задаться вопросом: а почему когда мы вешали директиву `formControlName` на `input type="text"` у нас не было никаких ошибок, мы ничего не реализовывали?
 Дело в том, что Ангуляр уже за нас реализовал для всех нативных контролов ControlValueAccessor. Можно посмотреть их [вот тут](https://github.com/angular/angular/blob/main/packages/forms/src/directives/checkbox_value_accessor.ts). Это ControlValueAccessor для checkbox, но в этом же каталоге лежат все остельные стандартные ValueAccessors.
+
+## Асинхронные валидаторы
+
+Синхронных валидаторов достаточно для большинства проверок. Но что если нужно проверить занят ли логин на сервере, существует ли промокод, доступен ли email? Для таких задач нужно посылать дополнительные http-запросы, то есть выполнять операцию валидации асинхронно, ведь неизвестно сколько времени будет длиться запрос.
+
+Асинхронные валидаторы работают точно так же, как синхронные, но возвращают `Observable<ValidationErrors | null>` вместо `ValidationErrors | null`. Пока асинхронный валидатор работает, контрол находится в состоянии `pending`.
+
+```typescript
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { inject } from '@angular/core';
+import { UserService } from './user.service';
+
+// Фабрика асинхронного валидатора
+function usernameAvailable(): AsyncValidatorFn {
+  const userService = inject(UserService);
+
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (!control.value) return of(null);
+
+    return of(control.value).pipe(
+      debounceTime(400),         // ждём 400мс после последнего ввода
+      distinctUntilChanged(),    // не запрашиваем если значение не изменилось
+      switchMap(username =>
+        userService.checkAvailability(username).pipe(
+          map(isAvailable => isAvailable ? null : { usernameTaken: true }),
+          catchError(() => of(null)), // ошибка сети — не блокируем форму
+        )
+      )
+    );
+  };
+}
+
+// Использование: async-валидаторы передаются третьим аргументом в FormControl
+const form = new FormGroup({
+  username: new FormControl(
+    '',
+    [Validators.required, Validators.minLength(3)], // sync
+    [usernameAvailable()]                           // async
+  ),
+});
+```
+
+В шаблоне показываем состояние `pending`:
+
+```html
+<input formControlName="username" />
+
+@if (form.controls.username.pending) {
+  <span>Проверяем доступность...</span>
+}
+@if (form.controls.username.errors?.['usernameTaken']) {
+  <span>Этот username уже занят</span>
+}
+```
+
+Важный нюанс производительности: Angular не запускает async-валидаторы, если sync-валидаторы уже вернули ошибку. Это правильное поведение — зачем делать запрос, если поле пустое или слишком короткое?
+
+## FormBuilder — сокращённый синтаксис для создания форм
+
+Писать `new FormControl(...)` для каждого поля быстро надоедает. `FormBuilder` — это сервис-хелпер, который сокращает синтаксис. Вместо явного создания объектов вы передаёте массивы `[значение, валидаторы]`.
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+
+@Component({ ... })
+export class RegisterComponent {
+  private fb = inject(FormBuilder);
+
+  form = this.fb.group({
+    email:    ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    profile: this.fb.group({
+      firstName: ['', Validators.required],
+      lastName:  ['', Validators.required],
+    }),
+  });
+}
+```
+
+`fb.group(...)` эквивалентен `new FormGroup(...)`, но читается чище. Обратите внимание: `FormGroup` можно вкладывать — `profile` здесь является вложенной группой. В шаблоне для неё нужна директива `formGroupName="profile"`.
+
+Давайте для примера сравним подход без использования `FormBuilder`:
+
+```ts
+@Component({ ... })
+export class RegisterComponent {
+  form = new FormGroup({
+    email:    new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    profile: new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName:  new FormControl('', Validators.required),
+    }),
+  });
+}
+```
+
+`FormBuilder` — это просто синтаксический сахар. `fb.group({ email: ['', ...] })` разворачивается в `new FormGroup({ email: new FormControl('', ...) })`. Результат идентичен, но код читается проще

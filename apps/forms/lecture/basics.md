@@ -260,6 +260,7 @@ this.form.statusChanges.subscribe(status => {
 
 Раз у нас valueChanges это поток (Observable) то мы можем использовать весь арсенал RxJS-операторов для обработки: фильтровать (filter), комбинировать значения вместе (combineLatest) и тд, в зав-ти от задачи
 
+
 ## Валидация
 Angular предоставляет набор готовых валидаторов в классе `Validators`:
 
