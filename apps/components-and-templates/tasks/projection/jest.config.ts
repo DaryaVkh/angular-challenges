@@ -5,7 +5,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   coverageDirectory:
-    '../../../coverage/apps/components-and-templates/projection',
+    '../../../coverage/apps/components-and-templates/tasks/projection',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
