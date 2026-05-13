@@ -119,8 +119,9 @@ Angular позволяет:
 <p>{{ counter }}</p>
 
 <button (click)="increase()">+</button>
+
 @if (counter > 0) {
-<button (click)="decrease()">-</button>
+  <button (click)="decrease()">-</button>
 }
 ```
 
@@ -267,7 +268,7 @@ name = '';
 
 В итоге в DOM отрендерятся только параграфы (p).
 
-Сравнение: ng-content vs ng-template vs ng-container\*\*
+## Сравнение: ng-content vs ng-template vs ng-container
 
 | Feature           | ng-content | ng-template | ng-container |
 | :---------------- | :--------- | :---------- | :----------- |
