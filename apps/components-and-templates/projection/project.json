@@ -2,7 +2,7 @@
   "name": "angular-projection",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/angular/1-projection/src",
+  "sourceRoot": "apps/components-and-templates/projection/src",
   "prefix": "app",
   "tags": [],
   "targets": {
@@ -10,17 +10,19 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/angular/1-projection",
-        "index": "apps/angular/1-projection/src/index.html",
-        "main": "apps/angular/1-projection/src/main.ts",
-        "polyfills": ["apps/angular/1-projection/src/polyfills.ts"],
-        "tsConfig": "apps/angular/1-projection/tsconfig.app.json",
+        "outputPath": "dist/apps/components-and-templates/projection",
+        "index": "apps/components-and-templates/projection/src/index.html",
+        "main": "apps/components-and-templates/projection/src/main.ts",
+        "polyfills": [
+          "apps/components-and-templates/projection/src/polyfills.ts"
+        ],
+        "tsConfig": "apps/components-and-templates/projection/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/angular/1-projection/src/favicon.ico",
-          "apps/angular/1-projection/src/assets"
+          "apps/components-and-templates/projection/src/favicon.ico",
+          "apps/components-and-templates/projection/src/assets"
         ],
-        "styles": ["apps/angular/1-projection/src/styles.scss"],
+        "styles": ["apps/components-and-templates/projection/src/styles.scss"],
         "scripts": [],
         "allowedCommonJsDependencies": ["seedrandom"]
       },

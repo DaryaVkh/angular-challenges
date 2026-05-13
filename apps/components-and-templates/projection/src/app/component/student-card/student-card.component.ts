@@ -11,19 +11,8 @@ import { CardComponent } from '../../ui/card/card.component';
 
 @Component({
   selector: 'app-student-card',
-  template: `
-    <app-card
-      [list]="students()"
-      [type]="cardType"
-      customClass="bg-light-green" />
-  `,
-  styles: [
-    `
-      ::ng-deep .bg-light-green {
-        background-color: rgba(0, 250, 0, 0.1);
-      }
-    `,
-  ],
+  templateUrl: './student-card.component.html',
+  styleUrl: './student-card.component.scss',
   imports: [CardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
