@@ -265,7 +265,7 @@ name = '';
 </ng-container>
 ```
 
-В итогове в DOM отрендерятся только параграфы (p).
+В итоге в DOM отрендерятся только параграфы (p).
 
 Сравнение: ng-content vs ng-template vs ng-container\*\*
 
