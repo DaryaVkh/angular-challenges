@@ -1,11 +1,9 @@
 # Wrap Function Pipe
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-wrap-function-pipe
+npm run serve:angular-wrap-function-pipe
 ```
 
 ### Documentation and Instruction

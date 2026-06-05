@@ -1,11 +1,9 @@
 # Bug in Effect ?
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve signal-bug-in-effect
+npm run serve:signal-bug-in-effect
 ```
 
 ### Documentation and Instruction

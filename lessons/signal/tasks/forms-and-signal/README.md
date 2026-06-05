@@ -1,11 +1,9 @@
 # forms and signal
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve signal-forms-and-signal
+npm run serve:signal-forms-and-signal
 ```
 
 ### Documentation and Instruction

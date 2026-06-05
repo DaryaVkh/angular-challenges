@@ -1,11 +1,9 @@
 # Structural Directive
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-structural-directive
+npm run serve:angular-structural-directive
 ```
 
 ### Documentation and Instruction

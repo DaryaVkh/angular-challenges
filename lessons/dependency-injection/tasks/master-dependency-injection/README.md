@@ -1,11 +1,9 @@
 # Master Dependancy Injection
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-master-dependency-injection
+npm run serve:angular-master-dependency-injection
 ```
 
 ### Documentation and Instruction

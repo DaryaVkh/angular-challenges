@@ -1,11 +1,9 @@
 # Pipe Observable to Signal
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve signal-pipe-observable-to-signal
+npm run serve:signal-pipe-observable-to-signal
 ```
 
 ### Documentation and Instruction

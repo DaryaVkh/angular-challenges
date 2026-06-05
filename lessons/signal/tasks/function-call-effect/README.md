@@ -1,11 +1,9 @@
 # Function call in effect
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve signal-function-call-effect
+npm run serve:signal-function-call-effect
 ```
 
 ### Documentation and Instruction

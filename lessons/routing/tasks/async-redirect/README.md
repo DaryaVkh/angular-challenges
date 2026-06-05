@@ -1,11 +1,9 @@
 # async-redirect
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-async-redirect
+npm run serve:angular-async-redirect
 ```
 
 ### Documentation and Instruction

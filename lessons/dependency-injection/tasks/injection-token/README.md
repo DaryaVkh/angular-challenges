@@ -1,11 +1,9 @@
 # InjectionToken
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-injection-token
+npm run serve:angular-injection-token
 ```
 
 ### Documentation and Instruction

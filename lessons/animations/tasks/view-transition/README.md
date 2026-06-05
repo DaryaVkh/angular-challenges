@@ -2,10 +2,10 @@
 
 > author: thomas-laforge
 
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-view-transition
+npm run angular-view-transition
 ```
 
 ### Documentation and Instruction

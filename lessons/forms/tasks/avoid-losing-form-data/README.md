@@ -1,11 +1,9 @@
 # Avoid losing form data
 
-> author: [Timothy Alcaide](https://github.com/alcaidio)
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve forms-avoid-losing-form-data
+npm run serve:forms-avoid-losing-form-data
 ```
 
 ---

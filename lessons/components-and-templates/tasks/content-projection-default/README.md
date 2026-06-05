@@ -1,11 +1,9 @@
 # Content Projection Default
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-content-projection-default
+npm run serve:angular-content-projection-default
 ```
 
 ### Documentation and Instruction

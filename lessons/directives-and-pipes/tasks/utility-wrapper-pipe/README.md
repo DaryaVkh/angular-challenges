@@ -1,11 +1,9 @@
 # Utility Wrapper Pipe
 
-> author: thomas-laforge
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve angular-utility-wrapper-pipe
+npm run serve:angular-utility-wrapper-pipe
 ```
 
 ### Documentation and Instruction

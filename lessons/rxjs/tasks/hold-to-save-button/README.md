@@ -1,11 +1,9 @@
 # Hold to send button
 
-> author: alcaidio
-
-### Run Application
+### Как запускать
 
 ```bash
-npx nx serve rxjs-hold-to-save-button
+npm run serve:rxjs-hold-to-save-button
 ```
 
 ### Documentation and Instruction
