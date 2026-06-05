@@ -100,6 +100,136 @@ export class UserComponent {
 
 ---
 
+## Взаимодействие компонентов
+
+### @Input — передача данных в компонент
+
+`@Input` позволяет родительскому компоненту передавать данные в дочерний.
+
+**child.component.ts**:
+
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `
+    <p>Hello, {{ name }}!</p>
+  `,
+})
+export class ChildComponent {
+  @Input() name = '';
+}
+```
+
+**parent.component.html**:
+
+```html
+<app-child [name]="username" />
+```
+
+**parent.component.ts**:
+
+```ts
+username = 'Darya';
+```
+
+Без `[]` в атрибуте передастся строка `"username"`, а не значение переменной.
+
+Можно задать псевдоним, если нужно, чтобы имя свойства в шаблоне отличалось от имени внутри класса:
+
+```ts
+@Input('userId') id = '';
+```
+
+```html
+<app-child [userId]="currentId" />
+```
+
+---
+
+### @Output — передача событий из компонента
+
+`@Output` позволяет дочернему компоненту отправлять события родителю через `EventEmitter`.
+
+**child.component.ts**:
+
+```ts
+import { Component, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `
+    <button (click)="handleClick()">Click me</button>
+  `,
+})
+export class ChildComponent {
+  @Output() clicked = new EventEmitter<string>();
+
+  handleClick(): void {
+    this.clicked.emit('Hello from child!');
+  }
+}
+```
+
+**parent.component.html**:
+
+```html
+<app-child (clicked)="onChildClick($event)" />
+```
+
+**parent.component.ts**:
+
+```ts
+onChildClick(message: string): void {
+  console.log(message); // 'Hello from child!'
+}
+```
+
+`$event` в шаблоне родителя — это значение, переданное в `emit()`.
+
+---
+
+### @Input и @Output вместе
+
+Типичный пример — компонент счётчика, который получает начальное значение и сообщает об изменениях:
+
+**counter.component.ts**:
+
+```ts
+@Component({
+  selector: 'app-counter',
+  template: `
+    <button (click)="decrement()">-</button>
+    <span>{{ count }}</span>
+    <button (click)="increment()">+</button>
+  `,
+})
+export class CounterComponent {
+  @Input() count = 0;
+  @Output() countChange = new EventEmitter<number>();
+
+  increment(): void {
+    this.count++;
+    this.countChange.emit(this.count);
+  }
+
+  decrement(): void {
+    this.count--;
+    this.countChange.emit(this.count);
+  }
+}
+```
+
+**parent.component.html**:
+
+```html
+<app-counter [count]="value" (countChange)="value = $event" />
+<p>Current value: {{ value }}</p>
+```
+
+---
+
 ## Шаблоны (Templates)
 
 ### Что такое template
@@ -121,7 +251,7 @@ Angular позволяет:
 <button (click)="increase()">+</button>
 
 @if (counter > 0) {
-  <button (click)="decrease()">-</button>
+<button (click)="decrease()">-</button>
 }
 ```
 
