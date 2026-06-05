@@ -1,11 +1,9 @@
 # View Transition
 
-> author: thomas-laforge
-
 ### Как запускать
 
 ```bash
-npm run angular-view-transition
+npm run serve:angular-view-transition
 ```
 
 ### Documentation and Instruction
