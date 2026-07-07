@@ -1,47 +1,39 @@
 # Content Projection Default
 
-### Как запускать
+> author: thomas-laforge
+
+## Run Application
 
 ```bash
 npm run serve:angular-content-projection-default
 ```
 
-### Documentation and Instruction
+Приложение будет запущено на http://localhost:4200
 
----
-title: 🟢 Content Projection Default
-description: Challenge 57 is about content projection default container
-author: thomas-laforge
-contributors:
-  - tomalaforge
-challengeNumber: 57
-command: angular-content-projection-default
-sidebar:
-  order: 22
----
+## Documentation and Instruction
 
-## Information
+## Информация
 
-Content projection in Angular allows developers to create flexible and customizable components by passing content from the parent component to the child component dynamically using `<ng-content>`.
+Content projection в Angular позволяет разработчикам создавать гибкие и настраиваемые компоненты, передавая содержимое из родительского компонента в дочерний динамически с помощью <ng-content>.
 
-Currently, we have a shared component that relies on `input` properties to receive and display data. However, we want to improve its flexibility by replacing all `inputs` with content projection while maintaining the same appearance and behavior.
+`host` в `@Component` позволяет управлять классами, атрибутами и обработчиками событий корневого элемента компонента. 
 
-## Statement
+Template reference variable (`#ref`) даёт доступ к DOM-элементу или компоненту прямо в шаблоне, без обращения к классу.
 
-Your task is to refactor the existing shared component to remove all `input` properties and instead use Angular’s `<ng-content>` for content projection. After your modifications, the application should look and function exactly as before, but without any `input`.
+В данный момент у нас есть общий (shared) компонент - card.component.ts, который использует input-свойства для получения и отображения данных. Однако мы хотим повысить его гибкость, заменив все input’ы на проекцию контента, при этом сохранив тот же внешний вид и поведение.
 
-### Steps to complete:
+## Задача
 
-- Identify all `input` properties in the shared component.
-- Remove them and replace them with appropriate `<ng-content>` containers.
-- Adjust the parent component to pass the necessary content using content projection instead of binding to `input`s.
-- Ensure that the application still displays the same UI and behavior after the changes.
+Вам нужно:
+- отрефакторить существующий shared-компонент: убрать все input-свойства и вместо них использовать <ng-content> для проекции контента. 
+- добавить закрытие, добавление, пин карточек
+- добавить логирование событий
 
-## Constraints
+## Пункты задания:
 
-- You must not use any `input` in the shared component.
-- The application’s UI and functionality must remain unchanged after the refactoring.
-- You must use `<ng-content>` for content projection.
-- Do not introduce additional properties or services to pass data.
-- Ensure that projected content is correctly styled and positioned as before.
-
+- Найдите все input-свойства в shared-компоненте. Удалите их и замените на соответствующие контейнеры <ng-content>.
+- Измените родительский компонент так, чтобы он передавал необходимый контент через проекцию, а не через binding input’ов. Убедитесь, что после изменений UI и поведение приложения остались прежними.
+- Добавьте в `CardComponent` кнопку закрытия и `readonly closed = output<void>();`, который эмитится по клику на неё. В шаблоне `AppComponent` используйте это событие: при его возникновении карточка должна визуально исчезать со страницы.
+- Внедрите `EventLogService` в `CardComponent` и вызовите `eventLog.log(...)` в `ngOnInit` и `ngOnDestroy` — сообщения "Card created"/"Card destroyed" должны появиться в блоке Event log на странице в момент создания/удаления карточки.
+- Добавьте в `CardComponent` boolean-состояние `pinned` (переключается кнопкой "📌" внутри карточки) и host-биндинг `[class.pinned]` — закреплённая карточка должна подсвечиваться жёлтой рамкой (стиль уже готов).
+- (*) Добавьте в `CardComponent` `@HostListener('keydown.escape')`, который эмитит `closed` (Escape закрывает карточку в фокусе) — карточка должна исчезать так же, как при клике на кнопку закрытия.

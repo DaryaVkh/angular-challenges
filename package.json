@@ -17,7 +17,6 @@
     "serve:performance-ngfor-optimization": "ng serve performance-ngfor-optimization",
     "serve:performance-optimize-change-detection": "ng serve performance-optimize-change-detection",
     "serve:angular-content-projection-default": "ng serve angular-content-projection-default",
-    "serve:angular-crud-application": "ng serve angular-crud-application",
     "serve:angular-projection": "ng serve angular-projection",
     "serve:angular-injection-token": "ng serve angular-injection-token",
     "serve:angular-master-dependency-injection": "ng serve angular-master-dependency-injection",

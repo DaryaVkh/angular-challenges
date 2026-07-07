@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     @if (message()) {
       <div>{{ message() }}</div>
     } @else {
-      <div>Aucun message</div>
+      <div>Default message</div>
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
