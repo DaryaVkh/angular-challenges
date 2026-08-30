@@ -142,6 +142,7 @@ const LEGEND_ORDER: ReadonlyArray<LogKind> = [
         display: flex;
         flex-direction: column;
         gap: 10px;
+        margin-top: 20px;
         padding: 14px 16px;
         background: var(--color-bg-elev);
         border: 1px solid var(--color-border);
@@ -151,6 +152,7 @@ const LEGEND_ORDER: ReadonlyArray<LogKind> = [
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
+        font-family: var(--font-mono);
         font-size: 12px;
         color: var(--color-text-dim);
       }
@@ -166,6 +168,7 @@ const LEGEND_ORDER: ReadonlyArray<LogKind> = [
         gap: 12px;
       }
       .marbles__label {
+        font-family: var(--font-mono);
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
@@ -306,6 +309,7 @@ const LEGEND_ORDER: ReadonlyArray<LogKind> = [
         overflow-wrap: anywhere;
       }
       .marbles__detail-text small {
+        font-family: var(--font-mono);
         color: var(--color-text-dim);
         font-size: 11.5px;
       }
