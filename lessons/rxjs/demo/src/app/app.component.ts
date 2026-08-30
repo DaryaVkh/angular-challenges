@@ -1,81 +1,101 @@
-import { CommonModule, NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { TuiRoot, TuiButton } from '@taiga-ui/core';
 import { SCENARIOS } from './scenarios';
+import { slidesUrl } from './scenarios/slides';
 import { ScenarioShellComponent } from './shared/scenario-shell/scenario-shell.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgComponentOutlet, ScenarioShellComponent],
+  imports: [NgComponentOutlet, TuiRoot, TuiButton, ScenarioShellComponent],
   template: `
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="app-header__title">
-          <span class="badge badge--violet">Интерактивная практика</span>
-          <h1>RxJS Playground</h1>
-        </div>
-        <div class="app-header__scenario">
-          <strong>Сценарий:</strong>
-          @if (currentScenario(); as cur) {
-            {{ cur.meta.name }}
-          }
-        </div>
-      </header>
+    <tui-root>
+      <div class="app-shell">
+        <header class="app-header">
+          <div class="app-header__title">
+            <h1>RxJS Playground</h1>
+            <span class="app-header__subtitle">Интерактивная практика к лекции</span>
+          </div>
+          <a
+            tuiButton
+            appearance="outline"
+            size="s"
+            href="https://drive.google.com/file/d/1Za4cFmLCpijsyiCBQZL5t8QgTMZIhaXu/view"
+            target="_blank"
+            rel="noopener"
+          >
+            Открыть презентацию
+          </a>
+        </header>
 
-      <div class="scenario-grid">
-        <aside class="sidebar" aria-label="Список сценариев">
-          <h2>Сценарии</h2>
-          <nav>
-            <ul>
-              @for (s of scenarios; track s.meta.id) {
-                <li>
-                  <button
-                    type="button"
-                    [class.is-active]="currentScenarioId() === s.meta.id"
-                    (click)="select(s.meta.id)"
-                  >
-                    <strong>{{ s.meta.name }}</strong>
-                    <small>{{ s.meta.summary }}</small>
-                    <span class="badge-list">
-                      @for (op of s.meta.operators; track op) {
-                        <span class="badge badge--cyan">{{ op }}</span>
-                      }
-                    </span>
-                  </button>
-                </li>
-              }
-            </ul>
-          </nav>
-        </aside>
+        <div class="scenario-grid">
+          <aside class="sidebar" aria-label="Список сценариев">
+            <h2>Сценарии</h2>
+            <nav>
+              <ul>
+                @for (s of scenarios; track s.meta.id) {
+                  <li>
+                    <button
+                      type="button"
+                      [class.is-active]="currentScenarioId() === s.meta.id"
+                      (click)="select(s.meta.id)"
+                    >
+                      <strong>{{ s.meta.name }}</strong>
+                      <small>{{ s.meta.summary }}</small>
+                      <span class="badge-list">
+                        @for (op of s.meta.operators; track op) {
+                          <span class="badge badge--cyan">{{ op }}</span>
+                        }
+                      </span>
+                    </button>
+                  </li>
+                }
+              </ul>
+            </nav>
+          </aside>
 
-        <main class="main-area">
-          @if (currentScenario(); as current) {
-            <section class="scenario-meta">
-              <div>
-                <strong>Лекция:</strong>
-                @for (ref of current.meta.lectureRefs; track ref) {
-                  <span class="badge badge--amber">{{ ref }}</span>
-                }
-              </div>
-              <div>
-                <strong>Операторы:</strong>
-                @for (op of current.meta.operators; track op) {
-                  <span class="badge badge--violet">{{ op }}</span>
-                }
-              </div>
-            </section>
-          }
-          <app-scenario-shell>
+          <main class="main-area">
             @if (currentScenario(); as current) {
-              <ng-container
-                *ngComponentOutlet="current.component"
-              />
+              <section class="scenario-meta">
+                <div class="scenario-meta__block">
+                  <strong>Слайды лекции:</strong>
+                  <span class="badge-list">
+                    @for (slide of current.meta.slides; track slide.page) {
+                      <a
+                        class="badge badge--amber scenario-meta__slide-link"
+                        [href]="slidesUrl(slide.page)"
+                        target="_blank"
+                        rel="noopener"
+                        [title]="'Слайд ' + slide.page + ': ' + slide.title"
+                      >
+                        {{ slide.page }} · {{ slide.title }}
+                      </a>
+                    }
+                  </span>
+                </div>
+                <div class="scenario-meta__block">
+                  <strong>Операторы:</strong>
+                  <span class="badge-list">
+                    @for (op of current.meta.operators; track op) {
+                      <span class="badge badge--violet">{{ op }}</span>
+                    }
+                  </span>
+                </div>
+              </section>
             }
-          </app-scenario-shell>
-        </main>
+            @if (currentScenario(); as current) {
+              @for (shell of [current]; track shell.meta.id) {
+                <app-scenario-shell>
+                  <ng-container *ngComponentOutlet="current.component" />
+                </app-scenario-shell>
+              }
+            }
+          </main>
+        </div>
       </div>
-    </div>
+    </tui-root>
   `,
   styles: [
     `
@@ -89,13 +109,17 @@ import { ScenarioShellComponent } from './shared/scenario-shell/scenario-shell.c
       }
       .app-header__title {
         display: flex;
-        align-items: center;
+        align-items: baseline;
         gap: 12px;
       }
       .app-header__title h1 {
         margin: 0;
         font-size: 18px;
         font-weight: 700;
+      }
+      .app-header__subtitle {
+        color: var(--color-text-dim);
+        font-size: 12px;
       }
       .sidebar h2 {
         margin: 0 0 12px;
@@ -149,9 +173,20 @@ import { ScenarioShellComponent } from './shared/scenario-shell/scenario-shell.c
         border: 1px solid var(--color-border);
         border-radius: var(--radius-md);
       }
+      .scenario-meta__block {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
       .scenario-meta strong {
-        margin-right: 6px;
         color: var(--color-text-dim);
+      }
+      .scenario-meta__slide-link {
+        text-decoration: none;
+      }
+      .scenario-meta__slide-link:hover {
+        filter: brightness(1.2);
       }
     `,
   ],
@@ -159,6 +194,8 @@ import { ScenarioShellComponent } from './shared/scenario-shell/scenario-shell.c
 export class AppComponent {
   protected readonly scenarios = SCENARIOS;
   protected readonly currentScenarioId = signal(SCENARIOS[0]?.meta.id ?? '');
+
+  protected slidesUrl = slidesUrl;
 
   protected currentScenario() {
     return this.scenarios.find((s) => s.meta.id === this.currentScenarioId());

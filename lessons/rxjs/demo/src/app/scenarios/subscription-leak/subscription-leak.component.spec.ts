@@ -15,10 +15,7 @@ describe('SubscriptionLeakComponent', () => {
   });
 
   afterEach(() => {
-    if (!fixture) return;
-    const component = fixture.componentInstance;
-    fixture.destroy();
-    (component as unknown as { impSub?: { unsubscribe: () => void } }).impSub?.unsubscribe();
+    fixture?.destroy();
   });
 
   it('создаётся без ошибок', () => {
@@ -26,18 +23,24 @@ describe('SubscriptionLeakComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('после destroy имплементарный поток продолжает тикать, а reactive — нет', fakeAsync(() => {
+  it('после destroy императивный виджет копит зомби-тики, реактивный останавливается', fakeAsync(() => {
     fixture = TestBed.createComponent(SubscriptionLeakComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    tick(500);
+
+    component.impCreate();
+    component.reaCreate();
+    tick(1000);
 
     const reactiveTicksBeforeDestroy = component.reaTicks();
     expect(component.impTicks()).toBeGreaterThan(0);
-    fixture.destroy();
-    tick(501);
+    expect(reactiveTicksBeforeDestroy).toBeGreaterThan(0);
 
-    expect(component.impLeaks()).toBeGreaterThan(0);
+    component.impDestroy();
+    component.reaDestroy();
+    tick(1000);
+
+    expect(component.impZombieTicks()).toBeGreaterThan(0);
     expect(component.reaTicks()).toBe(reactiveTicksBeforeDestroy);
   }));
 });

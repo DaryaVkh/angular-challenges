@@ -29,12 +29,12 @@ describe('ParallelRequestsComponent', () => {
   it('forkJoin вызывает transport для каждого id и дожидается всех', () => {
     component.reaFork();
     expect(fakeTransport.getItem).toHaveBeenCalledTimes(4);
-    expect(component.reaCount()).toBe(4);
+    expect(component.reaReady()).toBe(4);
   });
 
   it('mergeMap вызывает transport для каждого id', () => {
     component.reaMerge();
     expect(fakeTransport.getItem).toHaveBeenCalledTimes(4);
-    expect(component.reaCount()).toBe(4);
+    expect(component.reaReady()).toBe(4);
   });
 });

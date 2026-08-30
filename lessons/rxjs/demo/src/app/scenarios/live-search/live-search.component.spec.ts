@@ -67,16 +67,17 @@ describe('LiveSearchComponent', () => {
     secondCall.complete();
     tick();
 
-    expect(component.reaResult()?.term).toBe('rxjs');
+    expect(component.reaBooks().length).toBe(1);
+    expect(component.reaBooks()[0]?.title).toBe('a');
   }));
 
-  it('error из transport попадает в impResult = null', () => {
+  it('error из transport попадает в impBooks = []', () => {
     // Императивный путь — без afterViewInit, сразу дёргаем обработчик.
     const err = new Error('boom');
     fakeTransport.search.mockReturnValue(throwError(() => err));
 
     component.onImpInput('fail');
 
-    expect(component.impResult()).toBeNull();
+    expect(component.impBooks()).toEqual([]);
   });
 });

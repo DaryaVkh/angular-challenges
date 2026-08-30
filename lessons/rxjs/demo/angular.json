@@ -24,7 +24,11 @@
                 "input": "src/assets"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "node_modules/@taiga-ui/styles/taiga-ui-theme.less",
+              "node_modules/@taiga-ui/styles/taiga-ui-fonts.less",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
