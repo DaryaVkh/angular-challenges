@@ -93,6 +93,34 @@ component
 - простую строку (`routerLink="/users"`),
 - массив route segments (`[routerLink]="['/users', userId]"`). Это удобно для динамических маршрутов с подстановкой значений из полей компонента
 
+### routerLinkActive
+
+Angular умеет определить, является ли ссылка активной.
+
+```html
+<a
+  routerLink="/users"
+  routerLinkActive="active"
+>
+  Users
+</a>
+```
+
+Тогда, когда текущий URL `/users`, мы получим `<a class="active"></a>`. Это полезно для стилизации и выделения активной ссылки, например, в табах или меню.
+
+Если нужно считать ссылку активной только при точном совпадении (например, `/users`, но не `/users/1`):
+```html
+<a
+  routerLink="/users"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{
+    exact: true
+  }"
+>
+  Users
+</a>
+```
+
 ### Абсолютные и относительные маршруты
 
 **Абсолютный путь** всегда начинается с `/` и отсчитывается от корня приложения. То есть если мы кликнули на ссылку с `routerLink="/users"`, находясь на URL-е `my-application.ru/home`, то в итоге окажемся на `my-application.ru/users`.
