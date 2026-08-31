@@ -122,6 +122,33 @@ export class LoginComponent {
 }
 ```
 
+## Router
+
+Важная концепция: Router — дерево.
+
+Angular Router на самом деле работает не просто со списком URL. Он строит дерево маршрутов.
+
+```
+/
+│
+├── users
+│   │
+│   ├── list
+│   │
+│   ├── create
+│   │
+│   ├── update
+│   │
+│   └── :id
+│
+└── admin
+```
+Это называется **Router State Tree**. Именно поэтому существуют:
+- ActivatedRoute
+- ActivatedRoute.parent
+- ActivatedRoute.firstChild
+- ActivatedRoute.children
+
 ## Route parameters
 
 Параметры маршрута (route parameters) — это динамические сегменты в пути URL, используемые для идентификации конкретного ресурса или состояния.
@@ -256,6 +283,25 @@ export class UserComponent {
 }
 ```
 
+## ActivatedRoute
+
+`ActivatedRoute` — это не просто параметры. У него есть много полезных Observable, по которым можно отслеживать и реагировать на любые изменения в роуте:
+- route.url
+- route.params
+- route.paramMap
+- route.queryParams
+- route.queryParamMap
+- route.fragment
+- route.data
+- route.outlet
+- route.routeConfig
+
+Также (как упоминалось ранее) можно двигаться по дереву:
+- route.parent
+- route.firstChild
+- route.children
+- route.root
+
 ## Nested routes
 
 Нередким кейсом для более-менее серьезных приложений являются вложенные пути, например, даже если брать стандартную в разработке модель CRUD:
@@ -266,6 +312,7 @@ export class UserComponent {
 /users/list
 /users/create
 /users/update/:id
+/users/:id
 ```
 
 В routes это будет описано примерно так:
@@ -281,7 +328,7 @@ const routes: Routes = [
         component: UserListComponent,
       },
       {
-        path: 'card',
+        path: ':id',
         component: UserCardComponent,
       },
       {
