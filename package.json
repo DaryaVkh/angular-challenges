@@ -29,6 +29,7 @@
     "serve:forms-control-value-accessor": "ng serve forms-control-value-accessor",
     "serve:angular-anchor-navigation": "ng serve angular-anchor-navigation",
     "serve:angular-async-redirect": "ng serve angular-async-redirect",
+    "serve:angular-online-store": "ng serve angular-online-store",
     "serve:angular-router-input": "ng serve angular-router-input",
     "serve:rxjs-catch-error": "ng serve rxjs-catch-error",
     "serve:rxjs-high-order-operator-bug": "ng serve rxjs-high-order-operator-bug",

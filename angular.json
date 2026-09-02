@@ -1494,6 +1494,74 @@
         }
       }
     },
+    "angular-online-store": {
+      "projectType": "application",
+      "root": "lessons/routing/tasks/online-store",
+      "sourceRoot": "lessons/routing/tasks/online-store/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/lessons/routing/tasks/online-store",
+            "browser": "lessons/routing/tasks/online-store/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "lessons/routing/tasks/online-store/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "lessons/routing/tasks/online-store/public"
+              }
+            ],
+            "styles": ["lessons/routing/tasks/online-store/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "angular-online-store:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-online-store:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "angular-online-store:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint"
+        }
+      }
+    },
     "angular-router-input": {
       "projectType": "application",
       "root": "lessons/routing/tasks/router-input",
