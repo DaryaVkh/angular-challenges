@@ -1,4 +1,6 @@
-# forms and signal
+# Формы и сигналы
+
+🔴 Уровень: сложный · ⏱ 60–90 минут · Тема: [Сигналы](../../lecture/advanced.md)
 
 ### Как запускать
 
@@ -6,11 +8,10 @@
 npm run serve:signal-forms-and-signal
 ```
 
-### Documentation and Instruction
-
+## Документация
 ---
 title: 🔴 forms and signal
-description: Challenge 56 is about working with reactive forms and signals
+description: Испытание 56 про работу с реактивными формами и сигналами
 author: thomas-laforge
 contributors:
   - tomalaforge
@@ -20,19 +21,18 @@ sidebar:
   order: 211
 ---
 
-## Information
+## Информация
 
-We are working within a large e-commerce codebase that utilizes a substantial number of forms. The team predominantly uses reactive forms, and since the release of signals, we have been integrating them extensively.
+Мы работаем в большой кодовой базе интернет-магазина, где очень много форм. Команда преимущественно использует реактивные формы, а с выходом сигналов активно внедряет и их.
 
-The current feature in development is a multi-step form process. The steps include: selecting a product, choosing the quantity, and finally proceeding to the checkout step to complete the billing details. However, an issue has been identified: when a user navigates back from the checkout step to the quantity step, the previously selected quantity is not retained. This needs to be fixed.
+Сейчас в разработке находится многошаговая форма. Шаги такие: выбрать товар, выбрать количество и перейти на шаг оформления заказа (checkout), чтобы заполнить платёжные данные. Но обнаружилась проблема: когда пользователь возвращается с шага checkout на шаг с количеством, ранее выбранное количество не сохраняется. Это нужно исправить.
 
-## Challenge Statement
+## Задача
 
-The objective of this challenge is to make sure that the selected quantity is preserved when navigating back from the checkout step to the quantity step.
+Цель этого испытания — добиться того, чтобы выбранное количество сохранялось при возврате с шага checkout на шаг выбора количества.
 
-## Constraints
+## Ограничения
 
-The solution must use reactive forms and signals.
+Решение должно использовать реактивные формы и сигналы.
 
-Additionally, as an optional side challenge, you may refactor the code to use template-driven forms.
-
+Дополнительно, в качестве необязательного побочного задания, можно отрефакторить код на template-driven формы.
