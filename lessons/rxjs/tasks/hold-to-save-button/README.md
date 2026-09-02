@@ -1,57 +1,79 @@
-# Hold to send button
+# Удержание кнопки для сохранения
 
-### Как запускать
+В этом задании нужно сделать кнопку, которая срабатывает только после удержания
+в течение заданного времени. Такой приём подходит для важных действий, например
+для удаления аккаунта: случайное нажатие не должно запускать действие.
+
+## Запуск
+
+Команды выполняй из корня репозитория:
 
 ```bash
+npm install
 npm run serve:rxjs-hold-to-save-button
 ```
 
-### Documentation and Instruction
+Если зависимости уже установлены, достаточно выполнить вторую команду.
 
----
-title: 🟠 Hold to save button
-description: You're tasked with implementing Lucie's button design, requiring holding it for a set time to save, taking over from Sacha; functionalities include configuring duration, countdown initiation on "mousedown", progress bar reset on "mouseleave" or "mouseup", reflecting remaining time, and simulating save request on hold completion, using RxJS operators and ensuring declarative code.
-author: timothy-alcaide
-contributors:
-  - alcaidio
-  - LMFinney
-challengeNumber: 49
-command: rxjs-hold-to-save-button
-sidebar:
-  order: 19
----
+После запуска откроется приложение с кнопкой **Hold me** и полосой прогресса.
 
-## Context
+## Начальная заготовка
 
-As a member of the development team, you have to respond to a specific request from the UX designer, 👩🏻‍🎨 Lucie, who has designed a button that must be held down for X amount of time to save a save request.
+Открой `src/app/app.component.ts`. Сейчас там:
 
-Sacha 👶🏼 the trainee has already integrated the design but doesn't know how to perform the "holdable" functionality.
+- кнопка без обработчиков событий;
+- статичная полоса прогресса `<progress [value]="20" [max]="100">`;
+- метод `onSend()`, который пишет в консоль `'Save it!'`.
 
-So you're going to take over from him.
+Реактивной логики пока нет.
 
-## Functional expectation
+## Требования
 
-> "As a user, I would like to save something by holding down the button for a certain amount of time."
+1. Длительность удержания должна задаваться в миллисекундах.
+2. При `pointerdown` на кнопке начинается отсчёт.
+3. При `pointerup`, `pointerleave` или `pointercancel` отсчёт отменяется.
+4. При отмене полоса прогресса возвращается к нулю.
+5. Полоса прогресса постепенно уменьшается от полного значения до нуля.
+6. После полного удержания вызывается `holdTimeEnd.emit()` или аналогичное событие.
+7. Логика строится на потоках RxJS, без прямого использования `setTimeout` и `setInterval`.
 
-Here is the prototype made by Lucie:
+События `pointer*` поддерживают мышь, сенсорный экран и перо. Если используешь
+только мышь, допустимы `mousedown`, `mouseup` и `mouseleave`.
 
-![prototype gif](../../../../assets/rxjs/49/prototype.gif)
+## Задание
 
-## Acceptance Criteria
+Создай `src/app/holdable.directive.ts` и опиши директиву `HoldableDirective`:
 
-1. We should be able to configure a maintenance duration in milliseconds.
-2. Pressing and holding the button triggers the countdown on the `mousedown` event.
-3. On `mouseleave` or `mouseup` events, the progress bar is reset to 0.
-4. The progress bar representing the remaining relative time should reflect the remaining time.
-5. Simulates a backend request when the hold time is over (console log or alert).
-6. You must maximize the use of RxJS operators and be as declarative as possible.
+1. Используй селектор-атрибут, например `[appHoldable]`.
+2. Получи элемент кнопки через `ElementRef` или `@HostListener`.
+3. Добавь `input()` для длительности удержания, например `holdTime`.
+4. Добавь `output()` для успешного завершения, например `holdTimeEnd`.
+5. Собери потоки событий через `fromEvent`.
+6. Для отсчёта используй подходящие операторы (`switchMap`, `takeUntil`,
+   `interval`, `takeWhile`, `startWith`, `map`, `scan`).
 
-<details>
-    <summary>Tips 🤫 (if you really need it and after careful consideration)</summary>
-    <ul>
-      <li>Create the `HoldableDirective`</li>
-      <li>Use `TemplateRef` and `fromEvent` from RxJS to catch events or `@HostListener`</li>
-      <li>Perhaps the following RxJS operators can help you: interval, takeUntil, switchMap, takeWhile/retry...</li>
-    </ul>
-</details>
+`TemplateRef` для этой задачи не нужен: директива работает с уже существующей
+кнопкой.
 
+Пример использования:
+
+```html
+<button
+  appHoldable
+  [holdTime]="2000"
+  (holdTimeEnd)="onSend()"
+>
+  Hold me
+</button>
+```
+
+Свяжи значение прогресса с `<progress>` через `signal` или `toSignal`.
+
+## Проверка решения
+
+1. Начни удерживать кнопку — полоса должна уменьшаться.
+2. Держи кнопку до нуля — в консоли должно появиться `'Save it!'`.
+3. Отпусти кнопку раньше времени — отсчёт должен отмениться, полоса вернуться
+   к нулю, сообщение появляться не должно.
+4. Уведи указатель с кнопки — результат должен быть таким же.
+5. Повтори удержание после отмены — отсчёт должен начаться заново.
