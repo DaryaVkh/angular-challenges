@@ -1,4 +1,6 @@
-# Function call in effect
+# Вызов функции в эффекте
+
+🟢 Уровень: базовый · ⏱ 20–30 минут · Тема: [Сигналы](../../lecture/basics.md)
 
 ### Как запускать
 
@@ -6,11 +8,10 @@
 npm run serve:signal-function-call-effect
 ```
 
-### Documentation and Instruction
-
+## Документация
 ---
 title: 🟢 Function call in effect
-description: Challenge 51 is about understanding why an effect is triggered too often.
+description: Испытание 51 про то, почему effect срабатывает слишком часто
 author: thomas-laforge
 contributors:
   - tomalaforge
@@ -20,17 +21,16 @@ sidebar:
   order: 20
 ---
 
-## Information
+## Информация
 
-In this second challenge focusing on Signal effects, we've introduced an input select that allows users to choose an action. Whenever an action is selected, it is logged in the console. The application also permits changes to the selected user.
+Во втором испытании, посвящённом эффектам сигналов, добавлен выпадающий список, в котором пользователь выбирает действие. Каждый раз, когда действие выбрано, оно логируется в консоль. Также в приложении можно сменить выбранного пользователя.
 
-## Problem Statement
+## Задача
 
-Ideally, the system should log an action only when one is specifically selected. However, we currently face an issue where changing the user also triggers a log entry, even though we do not explicitly monitor user changes.
+В идеале действие должно логироваться только тогда, когда его действительно выбрали. Однако сейчас есть проблема: смена пользователя тоже приводит к записи в лог, хотя за изменениями пользователя мы явно не следим.
 
-The objective of this challenge is to identify and resolve the cause of these extra triggers. We aim to ensure that logging only occurs when an action is selected.
+Цель этого испытания — найти и устранить причину лишних срабатываний. Логирование должно происходить только при выборе действия.
 
-## Constraints
+## Ограничения
 
-- You cannot modify the `UserService` file.
-
+- Файл `UserService` изменять нельзя.

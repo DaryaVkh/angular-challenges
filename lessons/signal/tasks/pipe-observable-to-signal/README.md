@@ -1,16 +1,17 @@
 # Pipe Observable to Signal
 
+🔴 Уровень: сложный · ⏱ 60–90 минут · Тема: [Сигналы](../../lecture/advanced.md)
+
 ### Как запускать
 
 ```bash
 npm run serve:signal-pipe-observable-to-signal
 ```
 
-### Documentation and Instruction
-
+## Документация
 ---
 title: 🔴 Pipe Observable to Signal
-description: Challenge 54 is about refactoring an application using observable to signals
+description: Испытание 54 про рефакторинг приложения с observable на сигналы
 author: thomas-laforge
 contributors:
   - tomalaforge
@@ -21,13 +22,12 @@ sidebar:
   order: 210
 ---
 
-## Information
+## Информация
 
-We have a legacy application that is using observables to store a state. Signals are a very good fit for that.
+У нас есть легаси-приложение, которое хранит состояние в observable. Сигналы подходят для этого гораздо лучше.
 
-## Statement
+## Задача
 
-So, the goal of this challenge is to refactor the following application to be a fully signal-based application. When you are done, neither the pipe nor the service should import RxJS.
+Цель этого испытания — отрефакторить приложение так, чтобы оно полностью работало на сигналах. Когда вы закончите, ни пайп, ни сервис не должны импортировать RxJS.
 
-Be careful along the way; everything might not work as you wish.
-
+Будьте внимательны по ходу: не всё заработает так, как вам хотелось бы.

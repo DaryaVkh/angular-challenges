@@ -1,4 +1,6 @@
-# Bug in Effect ?
+# Баг в Эффекте?
+
+🟢 Уровень: базовый · ⏱ 20–30 минут · Тема: [Сигналы](../../lecture/basics.md)
 
 ### Как запускать
 
@@ -6,11 +8,10 @@
 npm run serve:signal-bug-in-effect
 ```
 
-### Documentation and Instruction
-
+## Документация
 ---
 title: 🟢 Bug in Effect
-description: Challenge 50 is about understanding why an effect is not triggered.
+description: Испытание 50 про то, почему effect не срабатывает
 author: thomas-laforge
 contributors:
   - tomalaforge
@@ -22,30 +23,29 @@ sidebar:
   order: 19
 ---
 
-## Information
+## Информация
 
-In this basic exercise, we aim to display an alert whenever at least one checkbox is checked. You are in the process of buying a MacBook, which can be upgraded with some extras, like more drive space, more RAM or a better GPU.
+В этом простом упражнении нужно показывать предупреждение (alert) каждый раз, когда отмечен хотя бы один чекбокс. По сюжету вы покупаете MacBook, который можно дополнить опциями: больше места на диске, больше оперативной памяти или более мощная видеокарта.
 
 <img width="889" alt="Bildschirmfoto 2024-05-09 um 08 57 57" src="https://github.com/svenson95/angular-challenges/assets/46655156/d78f42a5-9064-4a33-bb8c-c0433bd6966d">
 
-## Statement
+## Задача
 
-The actual implementation doesn't work as expected, and your task is to fix a bug that your team discovered. An alert should be shown if at least one of the three checkboxes is checked (independent of any other checkboxes). But if the first one is checked, checking one or both of the other two checkboxes does not cause the alert to display. Why does this happen?
+Текущая реализация работает не так, как ожидается, и ваша задача — починить баг, который обнаружила команда. Alert должен показываться, если отмечен хотя бы один из трёх чекбоксов (независимо от остальных). Но если отмечен первый чекбокс, то отметка одного или обоих оставшихся не приводит к появлению alert. Почему так происходит?
 
-The objective of this challenge is to understand the issue and fix the problem that prevents the alert from appearing when the second checkbox is clicked.
+Цель этой задачи — разобраться в причине и устранить проблему, из-за которой alert не появляется при клике по второму чекбоксу.
 
-## Acceptance Criteria
+## Критерии успеха
 
-To ensure this feature works properly, try this out to reproduce the bug after solving the challenge, to check if the bug is gone.
+Чтобы убедиться, что функциональность работает правильно, после решения испытания пройдите этот сценарий и проверьте, что баг исчез.
 
-- Check box 1 (Alert should be shown)
-- Check box 2 (Alert should be shown)
-- Uncheck box 1
-- Check box 3 (Alert should be shown)
-- Uncheck box 2
-- Uncheck box 3
+- Отметить чекбокс 1 (должен появиться alert)
+- Отметить чекбокс 2 (должен появиться alert)
+- Снять отметку с чекбокса 1
+- Отметить чекбокс 3 (должен появиться alert)
+- Снять отметку с чекбокса 2
+- Снять отметку с чекбокса 3
 
-## Bonus Challenge
+## Бонус
 
-- Try to implement this feature with a `computed` signal.
-
+- Попробуйте реализовать эту функциональность через сигнал `computed`.
